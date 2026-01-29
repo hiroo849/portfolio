@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>応募した企業を登録</title>
+</head>
+<body>
+
+<h2 th:text="${jobApplication.id == null ? '応募した企業を登録' : '応募内容を編集'}"></h2>
+
+<form
+    th:action="${jobApplication.id == null}
+    ? @{/jobApplications}
+    : @{/jobApplications/{id}(id=${jobApplication.id})}"
+    th:object="${jobApplication}"
+    method="post">
+
+  <div>
+    <label>会社名：</label>
+    <input type="text" th:field="*{companyName}">
+  </div>
+
+  <div>
+    <label>応募サイト：</label>
+    <select th:field="*{site}">
+      <option value="">-- 選択してください --</option>
+      <option th:each="s : ${sites}"
+              th:value="${s}"
+              th:text="${s.label}">
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label>応募日：</label>
+    <input type="date" th:field="*{appliedDate}">
+  </div>
+
+  <div>
+    <label>ステータス：</label>
+    <select th:field="*{status}">
+      <option value="">-- 選択してください --</option>
+      <option th:each="s : ${statuses}"
+              th:value="${s}"
+              th:text="${s.label}">
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label>メモ：</label>
+    <textarea th:field="*{memo}"></textarea>
+  </div>
+
+  <button type="submit">保存</button>
+</form>
+
+<a href="/">一覧へ戻る</a>
+
+</body>
+</html>

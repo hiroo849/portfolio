@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>応募一覧</title>
+</head>
+<body>
+
+<h1>応募一覧</h1>
+
+<p>
+  <a href="/jobApplications/new">＋ 新規応募を登録する</a>
+</p>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>会社名</th>
+    <th>応募サイト</th>
+    <th>応募日</th>
+    <th>ステータス</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="app : ${applications}">
+    <td th:text="${app.companyName}"></td>
+
+    <td th:text="${app.site != null ? app.site.label : '-'}"></td>
+
+    <td th:text="${app.appliedDate}"></td>
+
+    <td th:text="${app.status != null ? app.status.label : '-'}"></td>
+
+    <td>
+      <a th:href="@{/jobApplications/{id}/edit(id=${app.id})}">
+        編集
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
